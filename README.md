@@ -22,4 +22,7 @@ Web app built with Streamlit
 ## Run instructions
 1. Run `streamlit run app.py`. It should open your browser and generate a local Streamlit web page.
 
+## Deployed in Heroku
+### Access by https://ancient-caverns-63959.herokuapp.com
+
 
