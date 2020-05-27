@@ -4,6 +4,11 @@ import numpy as np
 import plotly.express as px
 from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
+import altair as alt
+import pickle, re
+from nltk.stem.porter import PorterStemmer
+from sklearn.feature_extraction.text import TfidfVectorizer 
+
 
 st.title('Sentiment Analysis of Tweets about US Airlines')
 st.sidebar.title('Sentiment Analysis of Tweets about US Airlines')
@@ -19,12 +24,35 @@ def load_data():
       data['tweet_created'] = pd.to_datetime(data['tweet_created'])
       return data
 
+# Data Preparation, remove tag and emoticons
+def preprocessor(text):
+    text = re.sub('<[^>]*>', '', text)
+    emoticons = re.findall('(?::|;|=)(?:-)?(?:\)|\(|D|P)', text)
+    text = re.sub('[\W]+', ' ', text.lower()) + ' '.join(emoticons).replace('-', '')
+    return text
+
+# Tokenization of documents
+porter = PorterStemmer()
+
+def tokenizer_porter(text):
+    return [porter.stem(word) for word in text.split()]
+
+# Transform Text Data into TF-IDF Vectors
+tfidf = TfidfVectorizer(strip_accents=None,
+                       lowercase=False,
+                       preprocessor=preprocessor,
+                       tokenizer=tokenizer_porter,
+                       use_idf=True,
+                       norm='l2',
+                       smooth_idf=True)
+
 data = load_data()
 
 # radio 
 st.sidebar.subheader('Show random tweet')
 random_tweet = st.sidebar.radio('Sentiment', ('positive', 'neutral', 'negative'))
-st.sidebar.markdown(data.query('airline_sentiment == @random_tweet')[['text']].sample(n=1).iat[0,0])
+rand_select = data.query('airline_sentiment == @random_tweet')[['text']].sample(n=1).iat[0,0]
+st.sidebar.markdown(rand_select)
 
 # selectbox
 st.sidebar.markdown('### Number of tweets by sentiment')
@@ -78,3 +106,15 @@ if not st.sidebar.checkbox('Close', True, key='3'):
       plt.xticks([])
       plt.yticks([])
       st.pyplot()
+
+
+# plot Altair 
+st.markdown('Display a chart using the Altair library.')
+df = pd.DataFrame(
+     np.random.randn(200, 3),
+     columns=['a', 'b', 'c'])
+
+c = alt.Chart(df).mark_circle().encode(
+     x='a', y='b', size='c', color='c', tooltip=['a', 'b', 'c'])
+
+st.altair_chart(c, use_container_width=True)
