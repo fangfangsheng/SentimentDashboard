@@ -25,4 +25,5 @@ Web app built with Streamlit
 ## Deployed in Heroku
 ### Access by https://ancient-caverns-63959.herokuapp.com
 
-
+## Deployed in AWS EC2
+- step by step 
