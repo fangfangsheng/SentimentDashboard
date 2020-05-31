@@ -10,6 +10,7 @@ dependencies:
 - altair=4.1.0
 - wordcloud=1.7.0
 - plotly=4.7.1
+- scikit-learn=0.23.1
 - pip  # don't pin this version, we always want latest
 - pip:
   - streamlit
