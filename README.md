@@ -26,4 +26,5 @@ Web app built with Streamlit
 ### Access by https://ancient-caverns-63959.herokuapp.com
 
 ## Deployed in AWS EC2
-- step by step 
+### Access by http://18.218.55.26:8501/
+- step by step instruction
