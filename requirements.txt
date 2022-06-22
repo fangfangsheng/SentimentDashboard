@@ -1,7 +1,7 @@
 streamlit==0.60.0
 plotly==4.4.1
 altair==4.1.0
-numpy==1.18.1
+numpy==1.22.0
 wordcloud==1.7.0
 matplotlib==3.2.1
 nltk==3.5
