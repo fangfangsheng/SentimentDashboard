@@ -4,6 +4,6 @@ altair==4.1.0
 numpy==1.18.1
 wordcloud==1.7.0
 matplotlib==3.2.1
-nltk==3.5
+nltk==3.9
 pandas==1.0.3
 scikit_learn==0.23.1
